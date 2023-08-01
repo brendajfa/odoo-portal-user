@@ -1,24 +1,23 @@
 <odoo>
-    <template id="tmp_expense_create" name="Expese Form">
-    <t t-call="portal.portal_layout">
+    <template id="form_template" name="New Form">
+        <t t-call="portal.portal_layout">
             <div id="wrap">
                 <div class="container">
                     <div class="col-md-12">
-                        <form action="/my/new_expense/form/submit" enctype="multipart/form-data" method="post" style="margin-top:20px">
+                        <form action="/my/form/submit" enctype="multipart/form-data" method="post" style="margin-top:20px">
                             <script>
-                                var products = [
-                                    <t t-foreach="products" t-as="product">
+                                var select_options = [
+                                    <t t-foreach="range(9)" t-as="i">
                                         {
-                                            "id": "<t t-out="product.id"/>",
-                                            "name": "<t t-out="product.name"/>",
-                                            "unit_amount": "<t t-out="product.price_compute('standard_price')[product.id]"/>",
-                                            "uom_name": "<t t-out="product.uom_id.name"/>",
+                                            "number": "<t t-out="i"/>",
+                                            "mult_2": "<t t-out="i*2"/>",
+                                            "exp_2": "<t t-out="i**2"/>",
                                         },
                                     </t>
                                 ]
                             </script>
                             <h1>
-                                New Expense
+                                New Form
                             </h1>
                             <tbody>
                                 <label for="file" class="form-label">Attach Receipt</label>
@@ -31,101 +30,62 @@
                                     <input type="text" class="form-control" name="name" id="name" required="true"/>
                                 </div>
                                 <div class="form-group">
-                                    <label for="expense_date">Expense Date:</label>
+                                    <label for="form_date">Date:</label>
                                     <div class="col-5">
-                                        <input type="date" id="expense_date" class="form-control" name="date" min="2018-01-01" t-att-value="datetime.date.today()"/>
+                                        <input type="date" id="form_date" class="form-control" name="date" t-att-value="datetime.date.today()"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="product">Product: </label>
-                                    <select class="form-control" id="product" name="product" required="true">
+                                    <label for="select_option">Select an option: </label>
+                                    <select class="form-control" required="true" id="select_option" name="select_option">
                                         <option value=""></option>
-                                        <tr t-foreach="products" t-as="product">
-                                            <option t-attf-value='#{product.id}'>
-                                                <t t-out="product.name"/>
-                                                <t t-if="product.default_code">
-                                                    [
-                                                    <t t-out="product.default_code"/>
-                                                    ]
-                                                </t>
+                                        <tr t-foreach="range(9)" t-as="i">
+                                            <option t-attf-value='#{i}'>
+                                                <t t-out="i"/>
                                             </option>
                                         </tr>
                                     </select>
                                 </div>
 
-                                <div id="product_has_cost" style="display: none;">
-                                    <div class="form-group">
-                                        <div id="unit_amount_div">
-                                            <label for="unit_amount">Unit Amount:</label>
-                                            <span name="unit_amount" id="unit_amount"></span>
-                                            <span>€</span>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row" id="quantity_div">
-                                        <div class="col-2">
-                                            <label for="total">Quantity:</label>
-                                        </div>
-                                        <div class="col-2">
-                                            <input type="number" step="1" id="quantity" class="form-control" name="quantity"/>
-                                        </div>
-                                        <div class="col">
-                                            <span class="pull-left" id='product_uom_id' name='product_uom_id'></span>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row" id="total_amount_company_div">
-                                        <div class="col-2">
-                                            <label for="total">Total:</label>
-                                        </div>
-                                        <div class="col-2">
-                                            <input id='total_amount_company' name='total_amount_company' type="text" class="form-control" readonly="True"></input>
-                                        </div>
-                                        <div class="col">
-                                            <span>€</span>
-                                        </div>
-                                    </div>
+                                <div>
+                                    <label for="mult">Option multiplied by 2: </label>
+                                    <span id="mult" name="mult"></span>
                                 </div>
+                                <div>
+                                    <label for="exp">Option aised to 2: </label>
+                                    <span id="exp" name="exp"></span>
+                                </div>
+
                                 <div class="form-group" id="total_amount_div">
-                                    <label for="total">Total:</label>
-                                    <input type="number" step="0.01" id="total_amount" class="form-control" name="total_amount"/>
+                                    <label for="total">Input number:</label>
+                                    <input type="number" step="0.01" id="total" class="form-control" name="total"/>
                                 </div>
-
-                                <div class="form-group">
-                                    <label for="analytic">Analytic Account:</label>
-                                    <input list="analytic_list" class="form-control" id="analytic" name="analytic" required="true" />
-                                    <datalist id="analytic_list">
-                                        <option value=""></option>
-                                        <tr t-foreach="analytic_accounts" t-as="analytic_acc">
-                                            <option t-attf-value="#{analytic_acc.id}, [#{analytic_acc.code}]  #{analytic_acc.name}"></option>
-                                        </tr>
-                                    </datalist>
-                                </div>
-
                    
                                 <div class="form-group">
-                                    <label for="analytic_tags">Analytic Tags:</label>
-                                    <input list="tag_list" class="form-control" id="analytic_tags" name="analytic_tag" required="true" />
-                                    <datalist id="tag_list">
+                                    <label for="input_datalist">Input with datalist</label>
+                                    <input list="list" class="form-control" id="input_datalist" name="input_datalist" required="true" />
+                                    <datalist id="list">
                                         <option value=""></option>
-                                        <tr t-foreach="analytic_tags" t-as="tag">
-                                            <option t-attf-value="#{tag.id},  [#{tag.code}] #{tag.name}"></option>
+                                        <tr t-foreach="range(9)" t-as="i">
+                                            <option t-attf-value="Datalist index #{i}"></option>
                                         </tr>
                                     </datalist>
                                 </div>
                                 <div class="form-group">
                                     <td class="o_td_label">
-                                        <label class="o_form_label" for="o_field_input_39" data-original-title="" title="">Paid By</label>
+                                        <label class="o_form_label" for="o_field_input_39" data-original-title="" title="">Radio input</label>
                                     </td>
                                     <td style="width: 100%;">
-                                        <div id="payment_mode" attrs="{'invisible': [('product_has_cost', '=', True)]}">
-                                            <div class="o_field_radio o_vertical o_field_widget o_quick_editable" name="payment_mode" role="radiogroup" aria-label="Paid By" id="o_field_input_76">
+                                        <div id="radio_input_div" attrs="{'invisible': [('product_has_cost', '=', True)]}">
+                                            <div class="o_field_radio o_vertical o_field_widget o_quick_editable" name="radio_input_div" role="radiogroup"  id="o_field_input_76">
                                                 <div class="custom-control custom-radio o_radio_item" aria-atomic="true">
-                                                    <input type="radio" class="custom-control-input o_radio_input" checked="true" name="paid_by" data-value="own_account" data-index="0" id="radio88_own_account" value="own_account" />
-                                                    <label class="custom-control-label o_form_label" for="radio88_own_account">Employee (to reimburse)</label>
+                                                    <input type="radio" class="custom-control-input o_radio_input" checked="true" name="radio_input" data-index="0" id="radio_1"  value="radio_1"  data-value="radio_1"/>
+                                                    <label class="custom-control-label o_form_label" for="radio_1">Radio 1</label>
                                                 </div>
 
                                                 <div class="custom-control custom-radio o_radio_item" aria-atomic="true">
-                                                    <input type="radio" class="custom-control-input o_radio_input" name="paid_by" data-value="company_account" data-index="1" id="radio88_company_account" value="company_account"/>
-                                                    <label class="custom-control-label o_form_label" for="radio88_company_account">Company</label>
+                                                    <input type="radio" class="custom-control-input o_radio_input" name="radio_input" data-index="1" id="radio_2" value="radio_2"  data-value="radio_2"/>
+                                                    <label class="custom-control-label o_form_label" for="radio_2">Radio 2</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -134,8 +94,8 @@
                             </tbody>
                             <div style="text-align: right;">
                                 <div class="btn-group mr-1 mb-1">
-                                    <button string="Create Expense" name="action_name" type="submit" class="btn btn-secondary btn-block ">
-                                        <a class="btn-group mr-1 mb-1" title="Create Expense" style="font-size:19px;color:white">Create Expense</a>
+                                    <button string="Create" name="action_name" type="submit" class="btn btn-secondary btn-block ">
+                                        <a class="btn-group mr-1 mb-1" title="Create" style="font-size:19px;color:white">Create</a>
                                     </button>
                                 </div>
                             </div>
@@ -145,7 +105,7 @@
             </div>
         </t>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script type="text/javascript" src="/expenses_portal/static/src/js/expense_create.js"/>
+        <script type="text/javascript" src="/create-form/static/src/js/create.js"/>
     </template>
 
 
