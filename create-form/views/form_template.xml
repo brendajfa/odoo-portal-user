@@ -52,7 +52,7 @@
                                     <span id="mult" name="mult"></span>
                                 </div>
                                 <div>
-                                    <label for="exp">Option aised to 2: </label>
+                                    <label for="exp">Option raised to 2: </label>
                                     <span id="exp" name="exp"></span>
                                 </div>
 
