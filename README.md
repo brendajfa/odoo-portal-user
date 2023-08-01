@@ -100,7 +100,7 @@ Esta carpeta contiene todas las vistas, en el caso actual se muestra un ejemplo 
     <img src="images/Form-Odoo.png">
 </p>
 
-<<<<<<< HEAD
+
 <p align="center">
     <img src="images/Form-Odoo-select-option.png">
 </p>
@@ -116,6 +116,5 @@ Esta carpeta contiene todas las vistas, en el caso actual se muestra un ejemplo 
 <p align="center">
     <img src="images/Form-Odoo-completed.png">
 </p>
-=======
+
 In this repository you will find the necessary guidelines to create a form for portal-type users, this can accommodate the needs of the backend programmer to request information that is linked to any existing module.
->>>>>>> f899aca1b43f6744f75fb0353fc3ce5722d3aa8b
