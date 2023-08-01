@@ -2,8 +2,8 @@
 
 
 <p align="center">
-    <img src="images/Odoo.jpg">
     <img src="images/Portada.png">
+    <img src="images/Odoo.jpg">
 </p>
 
 ## Índice
@@ -32,19 +32,6 @@ Here, you'll discover comprehensive guidelines to craft a versatile portal-type 
 
 ## Project structure
 
-<!-- ```
-create-form
-|   controllers
-|   |   __init__.py
-|   |   portal.py           
-|   static/src/js
-|   |   create.js         
-|   views
-|   |   form_template.xml         
-|   __init__.py
-|   __manifest__.py
-``` -->
-
 ```mermaid
 graph TD;
     create-form-->controllers;
@@ -57,21 +44,19 @@ graph TD;
     static/src/js-->create.js;
     views-->form_template.xml ;
 ```
+<p style="margin-top:30px"></p>
 
 ### controllers
-<p style="margin-top:20px">
-Dentro de "controllers" podéis encontrar la clase CustomerPortal de tipo portal.CustomerPortal que tiene dos rutas:
-</p>
+<p>Within the "controllers" folder, you can find the CustomerPortal class of type portal.CustomerPortal, which has two routes:</p>
 
 <ul>
-    <li><p>La primera, "/my/form" redirecciona a la view "form_template", se le puede añadir los argumentos que se necesiten en <b><i>vals</i></b>.</p>
-    <li><p style="margin-top:10px">En "/my/form/submit" se recogen los datos de la pagina con "post.get('nombre de la variable')", con esto se propoen crear una nueva instancia del modelo <b>model.name</b> pasando las "vals". Para conseguir guardar el archivo qu hayamos adjuntado, se ejecutan las siguientes líneas 39-69. Por último, se redirige a "/my".</p>
+    <li><p>The first one, "/my/form," redirects to the "form_template" view, and you can add any necessary arguments in <b><i>vals</i></b>.</p></li>
+    <li><p style="margin-top:10px">In "/my/form/submit," the data from the page is collected using "post.get('variable name'). With this, we aim to create a new instance of the <b>model.name</b> model, passing the "vals". To save the attached file, the following lines 39-69 are executed. Finally, it redirects to "/my".</p></li>
+
 </ul>
 
 ### static/src/js
-<p style="margin-top:20px">
-Para poder hacer operaciones in situ, se ha decidido utilizar JavaScript, en este archivo en donde se asignan un par de operaciones.
-</p>
+<p>To perform operations in-situ, it has been decided to use JavaScript in this file where a couple of operations are assigned.</p>
 
 ```Python
 function calculateOperation() {
@@ -88,23 +73,34 @@ function calculateOperation() {
 ```
 
 ### views
-<p style="margin-top:10px">
-Esta carpeta contiene todas las vistas, en el caso actual se muestra un ejemplo de formulario que abarca distintos inputs para el usuario.
-</p>
+<p>This folder contains all the views. In the current case, an example of a form is shown, which covers different inputs for the user.</p>
 
 ---
 
 ## Form template
+<p>The form displayed in this repository offers various possibilities, including:</p>
+
+* Ability to attach a file.
+* Add a description.
+* Specify a date.
+* Select an option that performs the following two operations: multiplication and exponentiation by 2.
+* Input a number with a sensitivity of 0.01.
+* Perform a search within a list.
+* Choose between two options using a radio input.
 
 <p align="center">
     <img src="images/Form-Odoo.png">
 </p>
 
 
+When selecting an option, a dropdown menu (select-option) is displayed, allowing you to choose a number from the available options.
+
 <p align="center">
     <img src="images/Form-Odoo-select-option.png">
 </p>
 
+
+The last input allows you to type and perform a quick search, especially useful when dealing with an extensive list. This search functionality helps users easily find specific items within the list by filtering as they type.
 <p align="center">
     <img src="images/Form-Odoo-input-datalist.png">
 </p>
@@ -113,8 +109,7 @@ Esta carpeta contiene todas las vistas, en el caso actual se muestra un ejemplo 
     <img src="images/Form-Odoo-input-datalistt.png">
 </p>
 
+This last image displays the result after filling out the entire form. The only step remaining is to click on the "Create" button, which will then save the information obtained from the form into the relevant model. 
 <p align="center">
     <img src="images/Form-Odoo-completed.png">
 </p>
-
-In this repository you will find the necessary guidelines to create a form for portal-type users, this can accommodate the needs of the backend programmer to request information that is linked to any existing module.
